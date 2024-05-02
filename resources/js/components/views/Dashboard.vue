@@ -31,11 +31,10 @@ const items = ref([
     { label: 'Remove', icon: 'pi pi-fw pi-minus' }
 ]);
 const lineOptions = ref(null);
-// const productService = new ProductService();
 
-// onMounted(() => {
-//     productService.getProductsSmall().then((data) => (products.value = data));
-// });
+onMounted(() => {
+
+});
 
 const formatCurrency = (value) => {
     return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
@@ -100,17 +99,17 @@ const applyDarkTheme = () => {
     };
 };
 
-watch(
-    isDarkTheme,
-    (val) => {
-        if (val) {
-            applyDarkTheme();
-        } else {
-            applyLightTheme();
-        }
-    },
-    { immediate: true }
-);
+// watch(
+//     isDarkTheme,
+//     (val) => {
+//         if (val) {
+//             applyDarkTheme();
+//         } else {
+//             applyLightTheme();
+//         }
+//     },
+//     { immediate: true }
+// );
 </script>
 
 <template>

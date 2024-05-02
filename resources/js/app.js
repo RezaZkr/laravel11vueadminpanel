@@ -108,15 +108,14 @@ import TreeTable from 'primevue/treetable';
 import TriStateCheckbox from 'primevue/tristatecheckbox';
 import VirtualScroller from 'primevue/virtualscroller';
 
-// import BlockViewer from '@/components/BlockViewer.vue';
+import BlockViewer from './components/BlockViewer.vue';
 
 import '../../public/panel/assets/styles.scss';
 
 const appInstance = createApp(app);
 
-
 appInstance.use(router);
-appInstance.use(PrimeVue, { ripple: true });
+appInstance.use(PrimeVue, {ripple: true});
 appInstance.use(ToastService);
 appInstance.use(DialogService);
 appInstance.use(ConfirmationService);
@@ -126,7 +125,7 @@ appInstance.directive('badge', BadgeDirective);
 appInstance.directive('ripple', Ripple);
 appInstance.directive('styleclass', StyleClass);
 
-// appInstance.component('BlockViewer', BlockViewer);
+appInstance.component('BlockViewer', BlockViewer);
 
 appInstance.component('Accordion', Accordion);
 appInstance.component('AccordionTab', AccordionTab);
