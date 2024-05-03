@@ -6,10 +6,11 @@
 
     <title>Laravel</title>
 
+    <!-- Styles -->
+
+    @vite('resources/css/app.css')<!-- necessary load before theme -->
     <link id="theme-css" rel="stylesheet" type="text/css" href="/panel/assets/themes/aura-dark-green/theme.css">
 
-    <!-- Styles -->
-    @vite('resources/css/app.css')
 </head>
 
 <body>
