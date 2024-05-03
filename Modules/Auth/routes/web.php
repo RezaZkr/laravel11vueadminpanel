@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\User\Http\Controllers\UserController;
+use Modules\Auth\Http\Controllers\Panel\PanelAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,8 @@ use Modules\User\Http\Controllers\UserController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('users', UserController::class)->names('users');
+Route::prefix('axios')->group(function () {
+
+    Route::post('/login', [PanelAuthController::class, 'login'])->name('login')->middleware('guest');
+
 });
