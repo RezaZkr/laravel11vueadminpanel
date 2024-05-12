@@ -36,8 +36,8 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver'   => 'session',
+        env('AUTH_GUARD', 'web') => [
+            'driver'   => 'jwt',
             'provider' => 'users',
         ],
     ],

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Auth\Http\Controllers\Panel\AuthController;
 
 /*
  *--------------------------------------------------------------------------
@@ -14,4 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::post('/login', [AuthController::class, 'login'])->name('login')->middleware('guest:panel');
+
+Route::middleware('auth:panel')->group(function () {
+
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+});
 

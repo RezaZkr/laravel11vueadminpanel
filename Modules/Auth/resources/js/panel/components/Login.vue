@@ -1,11 +1,13 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineComponent } from 'vue';
 import Toast from 'primevue/toast';
 import { useToast } from "primevue/usetoast";
+import { useAuthStore } from '../stores/auth.js'
 
 ////////////////////////////////////////////////////////// Variables ////////////////////////////////////////////////////////////////////
 
 const toast = useToast();
+const auth = useAuthStore()
 
 const email = ref(null);
 const password = ref(null);
@@ -22,7 +24,13 @@ const login = async () => {
 
     try {
 
-        const response = await axios.post(`/login`);
+        const response = await axios.post(`/login`, {
+            email: email.value,
+            password: password.value,
+            remember: rememberMe.value,
+        });
+
+        auth.setUser(response.data.data);
 
         // toast.add({ severity: 'success', summary: 'Accept', detail: response.data.message, life: 2000 });
 
@@ -56,7 +64,7 @@ const loggger = (string, divider = 1) => {
 </script>
 
 <template>
-    <Toast/>
+    <Toast />
 
     <div
         class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
@@ -77,7 +85,8 @@ const loggger = (string, divider = 1) => {
 
                         <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
                         <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true"
-                            class="w-full mb-3" inputClass="w-full" :inputStyle="{ padding: '1rem' }"></Password>
+                            :feedback="false" class="w-full mb-3" inputClass="w-full" :inputStyle="{ padding: '1rem' }">
+                        </Password>
 
                         <div class="flex align-items-center justify-content-between mb-5 gap-5">
                             <div class="flex align-items-center">

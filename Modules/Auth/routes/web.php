@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Auth\Http\Controllers\Panel\PanelAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +13,3 @@ use Modules\Auth\Http\Controllers\Panel\PanelAuthController;
 |
 */
 
-Route::prefix('axios')->group(function () {
-
-    Route::post('/login', [PanelAuthController::class, 'login'])->name('login')->middleware('guest');
-
-});

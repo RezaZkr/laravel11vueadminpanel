@@ -3,6 +3,8 @@
 namespace Modules\User\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Modules\User\Models\User;
 
 class UserDatabaseSeeder extends Seeder
 {
@@ -11,6 +13,12 @@ class UserDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call([]);
+        User::query()->updateOrCreate([
+            'email' => 'reza@zkr.com',
+        ], [
+            'first_name' => 'Reza',
+            'last_name'  => 'Zakeri',
+            'password'   => 12345678,//casted to hash
+        ]);
     }
 }

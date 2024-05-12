@@ -1,6 +1,8 @@
 import "./bootstrap";
 
-import {createApp} from "vue";
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+
 import app from "./components/app.vue";
 import router from "./router";
 
@@ -112,14 +114,16 @@ import BlockViewer from "./components/BlockViewer.vue";
 
 import "../../public/panel/assets/styles.scss";
 
+const pinia = createPinia();
 
 const appInstance = createApp(app);
 
 appInstance.use(router);
-appInstance.use(PrimeVue, {ripple: true});
+appInstance.use(PrimeVue, { ripple: true });
 appInstance.use(ToastService);
 appInstance.use(DialogService);
 appInstance.use(ConfirmationService);
+appInstance.use(pinia);
 
 appInstance.directive("tooltip", Tooltip);
 appInstance.directive("badge", BadgeDirective);
@@ -223,6 +227,5 @@ appInstance.component("TreeSelect", TreeSelect);
 appInstance.component("TreeTable", TreeTable);
 appInstance.component("TriStateCheckbox", TriStateCheckbox);
 appInstance.component("VirtualScroller", VirtualScroller);
-
 
 appInstance.mount("#app");

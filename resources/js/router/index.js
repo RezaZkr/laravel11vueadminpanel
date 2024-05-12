@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AppLayout from "../components/layouts/AppLayout.vue";
+import authMiddleware from "../../../Modules/Auth/resources/js/panel/middlewares/authMiddleware.js";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -7,9 +8,10 @@ const router = createRouter({
         {
             path: "/login",
             name: "login",
+            meta: { requiresAuth: false },
             component: () =>
                 import(
-                    "../../../Modules/Auth/resources/js/components/panel/Login.vue"
+                    "../../../Modules/Auth/resources/js/panel/components/Login.vue"
                 ),
         },
         {
@@ -19,12 +21,14 @@ const router = createRouter({
                 {
                     path: "/",
                     name: "dashboard",
+                    meta: { requiresAuth: true },
                     component: () =>
                         import("../components/views/Dashboard.vue"),
                 },
                 {
                     path: "/users",
                     name: "users",
+                    meta: { requiresAuth: true },
                     component: () =>
                         import(
                             "../../../Modules/User/resources/js/components/panel/Index.vue"
@@ -35,12 +39,6 @@ const router = createRouter({
     ],
 });
 
-router.beforeEach((to, from, next) => {
-    // if (to.name !== "login" && !isAuthenticated) {
-    //     next({ name: "login" });
-    // } else {
-    next();
-    // }
-});
+router.beforeEach(authMiddleware);
 
 export default router;
