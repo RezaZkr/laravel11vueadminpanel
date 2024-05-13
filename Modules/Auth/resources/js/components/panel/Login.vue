@@ -1,11 +1,13 @@
 <script setup>
-import { ref, onMounted, defineComponent } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router'
 import Toast from 'primevue/toast';
 import { useToast } from "primevue/usetoast";
-import { useAuthStore } from '../stores/auth.js'
+import { useAuthStore } from '../../stores/panel/authStore.js'
 
 ////////////////////////////////////////////////////////// Variables ////////////////////////////////////////////////////////////////////
 
+const router = useRouter()
 const toast = useToast();
 const auth = useAuthStore()
 
@@ -32,7 +34,7 @@ const login = async () => {
 
         auth.setUser(response.data.data);
 
-        // toast.add({ severity: 'success', summary: 'Accept', detail: response.data.message, life: 2000 });
+        router.push({ name: 'dashboard' })
 
     } catch (error) {
 

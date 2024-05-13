@@ -1,4 +1,4 @@
-import { useAuthStore } from "../stores/auth.js";
+import { useAuthStore } from "../../stores/panel/authStore.js";
 
 export default function authMiddleware(to, from, next) {
     const auth = useAuthStore();

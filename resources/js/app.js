@@ -1,10 +1,11 @@
 import "./bootstrap";
 
-import { createApp } from "vue";
-import { createPinia } from "pinia";
+import {createApp} from "vue";
+import {createPinia} from "pinia";
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
-import app from "./components/app.vue";
-import router from "./router";
+import app from "./components/panel/app.vue";
+import router from "./router/panel";
 
 import PrimeVue from "primevue/config";
 import AutoComplete from "primevue/autocomplete";
@@ -115,11 +116,12 @@ import BlockViewer from "./components/BlockViewer.vue";
 import "../../public/panel/assets/styles.scss";
 
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate)
 
 const appInstance = createApp(app);
 
 appInstance.use(router);
-appInstance.use(PrimeVue, { ripple: true });
+appInstance.use(PrimeVue, {ripple: true});
 appInstance.use(ToastService);
 appInstance.use(DialogService);
 appInstance.use(ConfirmationService);

@@ -16,9 +16,9 @@ class AuthController extends Controller
         if ($token = auth('panel')->attempt($credentials)) {
             $user = auth('panel')->user();
             return UserResource::make($user)->additional([
-                'data'=>[
+                'data' => [
                     'access_token' => $token,
-                    'expire'       => now()->addMinutes((int)config('jwt.ttl'))->toDateTimeString(),
+                    'expire'       => ((int)config('jwt.ttl')) * 60,//min to sec
                 ]
             ]);
         }
