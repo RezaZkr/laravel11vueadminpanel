@@ -3,7 +3,7 @@ const routes = [
         path: "/login",
         name: "login",
         meta: {requiresAuth: false},
-        component: () => import("../../components/panel/Login.vue"),
+        component: () => import("auth/js/components/panel/Login.vue"),
     },
 ];
 

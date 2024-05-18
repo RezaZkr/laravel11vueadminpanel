@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router'
 import Toast from 'primevue/toast';
 import { useToast } from "primevue/usetoast";
-import { useAuthStore } from '../../stores/panel/authStore.js'
+import { useAuthStore } from 'auth/js/stores/panel/authStore.js'
 
 ////////////////////////////////////////////////////////// Variables ////////////////////////////////////////////////////////////////////
 

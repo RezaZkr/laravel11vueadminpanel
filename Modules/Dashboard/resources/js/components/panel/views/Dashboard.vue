@@ -1,8 +1,8 @@
 <script setup>
-import { onMounted, reactive, ref, watch } from 'vue';
-import { useLayout } from '../layouts/composables/layout.js';
+import {onMounted, reactive, ref, watch} from 'vue';
+import {useLayout} from 'dashboard/js/components/panel/layouts/composables/layout.js';
 
-const { isDarkTheme } = useLayout();
+const {isDarkTheme} = useLayout();
 
 const products = ref(null);
 const lineData = reactive({
@@ -27,8 +27,8 @@ const lineData = reactive({
     ]
 });
 const items = ref([
-    { label: 'Add New', icon: 'pi pi-fw pi-plus' },
-    { label: 'Remove', icon: 'pi pi-fw pi-minus' }
+    {label: 'Add New', icon: 'pi pi-fw pi-plus'},
+    {label: 'Remove', icon: 'pi pi-fw pi-minus'}
 ]);
 const lineOptions = ref(null);
 
@@ -37,7 +37,7 @@ onMounted(() => {
 });
 
 const formatCurrency = (value) => {
-    return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    return value.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
 };
 const applyLightTheme = () => {
     lineOptions.value = {
@@ -122,7 +122,7 @@ const applyDarkTheme = () => {
                         <div class="text-900 font-medium text-xl">152</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
-                        style="width: 2.5rem; height: 2.5rem">
+                         style="width: 2.5rem; height: 2.5rem">
                         <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
                     </div>
                 </div>
@@ -138,7 +138,7 @@ const applyDarkTheme = () => {
                         <div class="text-900 font-medium text-xl">$2.100</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
-                        style="width: 2.5rem; height: 2.5rem">
+                         style="width: 2.5rem; height: 2.5rem">
                         <i class="pi pi-map-marker text-orange-500 text-xl"></i>
                     </div>
                 </div>
@@ -154,7 +154,7 @@ const applyDarkTheme = () => {
                         <div class="text-900 font-medium text-xl">28441</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
-                        style="width: 2.5rem; height: 2.5rem">
+                         style="width: 2.5rem; height: 2.5rem">
                         <i class="pi pi-inbox text-cyan-500 text-xl"></i>
                     </div>
                 </div>
@@ -170,7 +170,7 @@ const applyDarkTheme = () => {
                         <div class="text-900 font-medium text-xl">152 Unread</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
-                        style="width: 2.5rem; height: 2.5rem">
+                         style="width: 2.5rem; height: 2.5rem">
                         <i class="pi pi-comment text-purple-500 text-xl"></i>
                     </div>
                 </div>
@@ -184,10 +184,10 @@ const applyDarkTheme = () => {
                 <h5>Recent Sales</h5>
                 <DataTable :value="products" :rows="5" :paginator="true" responsiveLayout="scroll">
                     <Column style="width: 15%">
-                        <template #header> Image </template>
+                        <template #header> Image</template>
                         <template #body="slotProps">
                             <img :src="'demo/images/product/' + slotProps.data.image" :alt="slotProps.data.image"
-                                width="50" class="shadow-2" />
+                                 width="50" class="shadow-2"/>
                         </template>
                     </Column>
                     <Column field="name" header="Name" :sortable="true" style="width: 35%"></Column>
@@ -197,7 +197,7 @@ const applyDarkTheme = () => {
                         </template>
                     </Column>
                     <Column style="width: 15%">
-                        <template #header> View </template>
+                        <template #header> View</template>
                         <template #body>
                             <Button icon="pi pi-search" type="button" class="p-button-text"></Button>
                         </template>
@@ -209,7 +209,7 @@ const applyDarkTheme = () => {
                     <h5>Best Selling Products</h5>
                     <div>
                         <Button icon="pi pi-ellipsis-v" class="p-button-text p-button-plain p-button-rounded"
-                            @click="$refs.menu2.toggle($event)"></Button>
+                                @click="$refs.menu2.toggle($event)"></Button>
                         <Menu ref="menu2" :popup="true" :model="items"></Menu>
                     </div>
                 </div>
@@ -292,14 +292,14 @@ const applyDarkTheme = () => {
         <div class="col-12 xl:col-6">
             <div class="card">
                 <h5>Sales Overview</h5>
-                <Chart type="line" :data="lineData" :options="lineOptions" />
+                <Chart type="line" :data="lineData" :options="lineOptions"/>
             </div>
             <div class="card">
                 <div class="flex align-items-center justify-content-between mb-4">
                     <h5>Notifications</h5>
                     <div>
                         <Button icon="pi pi-ellipsis-v" class="p-button-text p-button-plain p-button-rounded"
-                            @click="$refs.menu1.toggle($event)"></Button>
+                                @click="$refs.menu1.toggle($event)"></Button>
                         <Menu ref="menu1" :popup="true" :model="items"></Menu>
                     </div>
                 </div>
@@ -313,7 +313,7 @@ const applyDarkTheme = () => {
                         </div>
                         <span class="text-900 line-height-3">Richard Jones
                             <span class="text-700">has purchased a blue t-shirt for <span
-                                    class="text-blue-500">79$</span></span>
+                                class="text-blue-500">79$</span></span>
                         </span>
                     </li>
                     <li class="flex align-items-center py-2">
@@ -322,7 +322,7 @@ const applyDarkTheme = () => {
                             <i class="pi pi-download text-xl text-orange-500"></i>
                         </div>
                         <span class="text-700 line-height-3">Your request for withdrawal of <span
-                                class="text-blue-500 font-medium">2500$</span> has been initiated.</span>
+                            class="text-blue-500 font-medium">2500$</span> has been initiated.</span>
                     </li>
                 </ul>
 
@@ -335,7 +335,7 @@ const applyDarkTheme = () => {
                         </div>
                         <span class="text-900 line-height-3">Keyser Wick
                             <span class="text-700">has purchased a black jacket for <span
-                                    class="text-blue-500">59$</span></span>
+                                class="text-blue-500">59$</span></span>
                         </span>
                     </li>
                     <li class="flex align-items-center py-2 border-bottom-1 surface-border">
@@ -350,14 +350,14 @@ const applyDarkTheme = () => {
                 </ul>
             </div>
             <div class="px-4 py-5 shadow-2 flex flex-column md:flex-row md:align-items-center justify-content-between mb-3"
-                style="border-radius: 1rem; background: linear-gradient(0deg, rgba(0, 123, 255, 0.5), rgba(0, 123, 255, 0.5)), linear-gradient(92.54deg, #1c80cf 47.88%, #ffffff 100.01%)">
+                 style="border-radius: 1rem; background: linear-gradient(0deg, rgba(0, 123, 255, 0.5), rgba(0, 123, 255, 0.5)), linear-gradient(92.54deg, #1c80cf 47.88%, #ffffff 100.01%)">
                 <div>
                     <div class="text-blue-100 font-medium text-xl mt-2 mb-3">TAKE THE NEXT STEP</div>
                     <div class="text-white font-medium text-5xl">Try PrimeBlocks</div>
                 </div>
                 <div class="mt-4 mr-auto md:mt-0 md:mr-0">
                     <a href="https://www.primefaces.org/primeblocks-vue"
-                        class="p-button font-bold px-5 py-3 p-button-warning p-button-rounded p-button-raised"> Get
+                       class="p-button font-bold px-5 py-3 p-button-warning p-button-rounded p-button-raised"> Get
                         Started </a>
                 </div>
             </div>
