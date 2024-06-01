@@ -4,7 +4,6 @@ namespace Modules\Auth\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Modules\User\Models\User;
 use Modules\User\Transformers\UserResource;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 

@@ -5,6 +5,11 @@ import AppFooter from './AppFooter.vue';
 import AppSidebar from './AppSidebar.vue';
 import AppConfig from './AppConfig.vue';
 import {useLayout} from './composables/layout.js';
+import { useToast } from 'primevue/usetoast';
+import { useConfirm } from "primevue/useconfirm";
+
+window.toast= useToast();
+window.confirm= useConfirm();
 
 const {layoutConfig, layoutState, isSidebarActive} = useLayout();
 
@@ -72,6 +77,7 @@ const isOutsideClicked = (event) => {
         <div class="layout-mask"></div>
     </div>
     <Toast/>
+    <ConfirmDialog></ConfirmDialog>
 </template>
 
 <style lang="scss" scoped></style>

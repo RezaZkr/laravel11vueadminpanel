@@ -1,5 +1,6 @@
 {
     "Dashboard": true,
     "User": true,
-    "Auth": true
+    "Auth": true,
+    "Access": true
 }

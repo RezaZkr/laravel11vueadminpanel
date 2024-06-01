@@ -1,57 +1,38 @@
 <script setup>
-import {ref, onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 import AppMenuItem from './AppMenuItem.vue';
 import routes from '@/router/panel/routes.js';
 
-const mapRoutes = () => {
-    const result = [];
-    const routeMap = {};
 
-    routes.forEach(route => {
+const mapRoutes = (menuData) => {
+    return menuData.map(item => {
+        item.nav = item.hasOwnProperty('nav') ? item.nav : true;
 
-        if (!routeMap[route.name]) {
-            routeMap[route.name] = {
-                label: route.label,
-                items: []
-            };
+        if (!item.nav) {
+            return {};
+        }
+        let newItem = {
+            label: item.label,
+            icon: item.icon,
+            to: item.path,
+            name: item.name,
+            meta: item.meta,
+        };
 
+        if (item.children && item.children.length > 0) {
+            newItem.items = mapRoutes(item.children);
         }
 
-        if (route.children) {
-            route.children.forEach(children => {
-                routeMap[route.name].items.push({
-                    label: children.label,
-                    icon: children.icon,
-                    to: children.path
-                });
-            });
-
-        } else {
-            routeMap[route.name].items.push({
-                label: route.label,
-                icon: route.icon,
-                to: route.path
-            });
-        }
-
-        result.push(routeMap[route.name]);
-
+        return newItem;
     });
-
-    return result.filter(group => group.label);
 }
 
-
 const mappedRoutes = ref([]);
-
-// console.log('111111111111111111111111111111111111111111');
-// console.log(mappedRoutes.value);
-// console.log('111111111111111111111111111111111111111111');
 
 ////////////////////////////////////////////////////////// Others /////////////////////////////////////////////////////////////////////
 
 onMounted(() => {
-    mappedRoutes.value = mapRoutes()//Todo:implement user access
+    mappedRoutes.value = mapRoutes(routes)//Todo:implement user access
 });
 
 ////////////////////////////////////////////////////////// Others ////////////////////////////////////////////////////////////////////

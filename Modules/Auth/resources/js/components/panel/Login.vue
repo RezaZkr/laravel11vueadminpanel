@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router'
-import Toast from 'primevue/toast';
 import { useToast } from "primevue/usetoast";
 import { useAuthStore } from 'auth/js/stores/panel/authStore.js'
 
@@ -66,8 +65,6 @@ const loggger = (string, divider = 1) => {
 </script>
 
 <template>
-    <Toast />
-
     <div
         class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
         <div class="flex flex-column align-items-center justify-content-center">

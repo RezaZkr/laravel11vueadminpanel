@@ -17,6 +17,7 @@ export default defineConfig({
             auth: path.resolve(__dirname, "Modules/Auth/resources"),
             dashboard: path.resolve(__dirname, "Modules/Dashboard/resources"),
             user: path.resolve(__dirname, "Modules/User/resources"),
+            access: path.resolve(__dirname, "Modules/Access/resources"),
         }
     }
 });
