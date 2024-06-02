@@ -2,11 +2,11 @@
 
 namespace Modules\Access\Models;
 
-use Spatie\Permission\Models\Role as SpatieRoleModel;
+use Spatie\Permission\Models\Permission as SpatiePermissionModel;
 use Illuminate\Database\Eloquent\Builder;
 
 
-class Role extends SpatieRoleModel
+class Permission extends SpatiePermissionModel
 {
     public function scopePanelGuard(Builder $query): void
     {

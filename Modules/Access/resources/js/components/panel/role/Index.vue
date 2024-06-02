@@ -156,7 +156,7 @@ watch(search, debounce(() => {
                                 <router-link to="/roles/create" rel="noopener">
                                     <Button severity="success" label="Add" />
                                 </router-link>
-                              
+
                             </div>
                         </template>
                         <template #empty> No Data </template>
@@ -177,7 +177,9 @@ watch(search, debounce(() => {
                         <Column header="Actions" style="min-width: 2rem">
                             <template #body="slotProps">
                                 <div class="flex space-x-3">
-                                    <Button icon="pi pi-pencil" severity="info" aria-label="Edit" />
+                                    <router-link :to="{ name: 'roles.edit', params: { id: slotProps.data.id } }">
+                                        <Button icon="pi pi-pencil" severity="info" aria-label="Edit" />
+                                    </router-link>
                                     <Button icon="pi pi-trash" severity="danger" aria-label="Delete"
                                         @click="deleteRole(slotProps.data.id)" />
                                 </div>

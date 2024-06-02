@@ -1,17 +1,31 @@
 <script setup>
-import {computed, watch, ref} from 'vue';
+import { computed, watch, ref, inject } from 'vue';
 import AppTopbar from './AppTopbar.vue';
 import AppFooter from './AppFooter.vue';
 import AppSidebar from './AppSidebar.vue';
 import AppConfig from './AppConfig.vue';
-import {useLayout} from './composables/layout.js';
+import { useLayout } from './composables/layout.js';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from "primevue/useconfirm";
+import { useRouter } from 'vue-router';
 
-window.toast= useToast();
-window.confirm= useConfirm();
+const router = useRouter();
 
-const {layoutConfig, layoutState, isSidebarActive} = useLayout();
+const loading = inject('loading');
+
+window.toast = useToast();
+window.confirm = useConfirm();
+
+window.axios.interceptors.response.use((response) => {
+    return response;
+}, function (error) {
+    if (error.response.status === 404) {
+        return router.go(-1);
+    }
+    return Promise.reject(error);
+});
+
+const { layoutConfig, layoutState, isSidebarActive } = useLayout();
 
 const outsideClickListener = ref(null);
 
@@ -62,6 +76,11 @@ const isOutsideClicked = (event) => {
 </script>
 
 <template>
+
+    <div class="fixed inset-0 flex items-center justify-center bg-opacity-10 z-50" v-if="loading">
+        <ProgressSpinner style="width: 70px; height: 70px" animationDuration=".5s" />
+    </div>
+
     <div class="layout-wrapper" :class="containerClass">
         <app-topbar></app-topbar>
         <div class="layout-sidebar">
@@ -69,6 +88,7 @@ const isOutsideClicked = (event) => {
         </div>
         <div class="layout-main-container">
             <div class="layout-main">
+
                 <router-view></router-view>
             </div>
             <app-footer></app-footer>
@@ -76,7 +96,7 @@ const isOutsideClicked = (event) => {
         <app-config></app-config>
         <div class="layout-mask"></div>
     </div>
-    <Toast/>
+    <Toast />
     <ConfirmDialog></ConfirmDialog>
 </template>
 

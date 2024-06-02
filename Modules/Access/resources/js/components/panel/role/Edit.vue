@@ -1,11 +1,15 @@
 <script setup>
-import { ref, onMounted, inject } from "vue";
+import { ref, onMounted, inject, reactive } from "vue";
 import { useRouter } from 'vue-router';
 import debounce from 'lodash.debounce';
 
 ////////////////////////////////////////////////////////// Variables /////////////////////////////////////////////////////////////////////
 
-const router = useRouter()
+const router = useRouter();
+
+const props = defineProps({
+    id: String,
+})
 
 const home = ref({
     icon: 'pi pi-home',
@@ -13,10 +17,14 @@ const home = ref({
 });
 const items = ref([
     { label: 'Access' },
-    { label: 'Create', route: '/roles/create' }
+    { label: 'Edit', route: '/roles/:id/edit' }
 ]);
 
-const roleName = ref(null);
+const role = reactive({
+    id: props.id,
+    name: null,
+    permissions: [],
+});
 const permissions = ref([]);
 const loading = inject('loading')
 const selectedPermissions = ref([]);
@@ -26,6 +34,25 @@ const selectedGroups = ref([]);
 
 
 ////////////////////////////////////////////////////////// Functions /////////////////////////////////////////////////////////////////////
+
+const fetchRole = async () => {
+
+    loading.value = true;
+
+    try {
+
+        const response = await axios.get(`/roles/${props.id}`);
+
+        role.name = response.data.data.name;
+        role.permissions = response.data.data.permissions;
+
+    } catch (error) {
+        toast.add({ severity: 'error', summary: 'Rejected', detail: error.response.data.message, life: 2000 });
+    }
+
+    loading.value = false;
+
+}
 
 const fetchPermissions = async () => {
 
@@ -37,6 +64,8 @@ const fetchPermissions = async () => {
 
         permissions.value = response.data;
 
+        fillPermissions();
+
     } catch (error) {
 
         toast.add({ severity: 'error', summary: 'Rejected', detail: error.response.data.message, life: 2000 });
@@ -47,14 +76,14 @@ const fetchPermissions = async () => {
 
 }
 
-const saveRole = async () => {
+const editRole = async () => {
 
     loading.value = true;
 
     try {
 
-        const response = await axios.post(`/roles`, {
-            name: roleName.value,
+        const response = await axios.put(`/roles/${props.id}`, {
+            name: role.name,
             permissions: selectedPermissions.value,
         });
 
@@ -64,20 +93,24 @@ const saveRole = async () => {
         debouncedNavigate();
 
     } catch (error) {
-
         toast.add({ severity: 'error', summary: 'Rejected', detail: error.response.data.message, life: 2000 });
-
     }
 
     loading.value = false;
 }
 
 const debouncedNavigate = debounce(() => {
-   return router.push({ path: '/roles' });
+    return router.push({ path: '/roles' });
 }, 800);
 
+const fillPermissions = () => {
+    role.permissions?.forEach(permission => {
+        selectedPermissions.value.push(permission.id);
+    });
+}
+
 const clearForm = () => {
-    roleName.value = null;
+    role.name = null;
     selectedPermissions.value = [];
     selectedGroups.value = [];
 }
@@ -128,6 +161,7 @@ const loggger = (string, divider = 1) => {
 ////////////////////////////////////////////////////////// Others /////////////////////////////////////////////////////////////////////
 
 onMounted(() => {
+    fetchRole();
     fetchPermissions();
 });
 
@@ -164,7 +198,8 @@ onMounted(() => {
 
                     <div class="w-full grid grid-cols-1 mb-3">
                         <div class="w-full flex items-center border-b border-indigo-500 py-2">
-                            <InputText placeholder="Name" aria-label="Name" class="w-80" v-model="roleName"></InputText>
+                            <InputText placeholder="Name" aria-label="Name" class="w-80" v-model="role.name">
+                            </InputText>
                         </div>
                     </div>
 
@@ -199,7 +234,7 @@ onMounted(() => {
 
                     </div>
                     <div class="flex justify-end">
-                        <Button class="mt-3" label="Save" @click="saveRole()" :loading="loading"></Button>
+                        <Button class="mt-3" label="Update" @click="editRole()" :loading="loading"></Button>
                     </div>
                 </template>
 

@@ -1,6 +1,6 @@
 import "./bootstrap";
 
-import { createApp } from "vue";
+import { createApp, ref } from "vue";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
@@ -230,11 +230,13 @@ appInstance.component("TreeTable", TreeTable);
 appInstance.component("TriStateCheckbox", TriStateCheckbox);
 appInstance.component("VirtualScroller", VirtualScroller);
 
+appInstance.provide('loading', ref(false))
+
 appInstance.mount("#app");
 
 
 import axios from 'axios';
-import { useAuthStore } from 'auth/js/stores/panel/authStore.js'
+import { useAuthStore } from 'auth/js/stores/panel/authStore.js';
 
 const auth = useAuthStore()
 window.axios = axios;
